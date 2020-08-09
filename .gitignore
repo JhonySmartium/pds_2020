@@ -1,0 +1,16 @@
+transcript
+/ejercicio_clase_1_version_1/ejer_1
+/ejercicio_clase_1_version_2/ejer_1
+ejercicio_clase_1_version_1/modelsim.ini
+ejercicio_clase_1_version_1/vsim.wlf
+*.wlf
+*.ini
+multiplicador_axis_fixed_point/fxpoint/__pycache__/__init__.cpython-37.pyc
+multiplicador_axis_fixed_point/fxpoint/__pycache__/_fixedInt.cpython-37.pyc
+multiplicador_axis_fixed_point/__pycache__/generate_stimulus_signal.cpython-37.pyc
+multiplicador_axis_fixed_point/test_lib/_info
+multiplicador_axis_fixed_point/test_lib/_lib.qdb
+multiplicador_axis_fixed_point/test_lib/_lib1_0.qdb
+multiplicador_axis_fixed_point/test_lib/_lib1_0.qpg
+multiplicador_axis_fixed_point/test_lib/_lib1_0.qtl
+multiplicador_axis_fixed_point/test_lib/_vmake
