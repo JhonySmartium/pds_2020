@@ -15,3 +15,7 @@ vhdl/multiplicador_axis_fixed_point/__pycache__/generate_stimulus_signal.cpython
 vhdl/multiplicador_axis_fixed_point/fxpoint/__pycache__/__init__.cpython-37.pyc
 vhdl/multiplicador_axis_fixed_point/fxpoint/__pycache__/_fixedInt.cpython-37.pyc
 transcript
+python/fxpoint/__pycache__/__init__.cpython-37.pyc
+python/fxpoint/__pycache__/_fixedInt.cpython-37.pyc
+python/fxpoint/.vscode/settings.json
+.vscode
