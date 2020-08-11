@@ -76,3 +76,8 @@ TypeError: 'bitorder' is an invalid keyword argument for pack()
 Esto aplicaria tanto para:
   * Script de prueba para el ejercicio 2.[Link](./vhdl/python/../../python/generate_conv_data.py) 
   * Script para chequear con el encoder convolucional reducido:[Link](./vhdl/test_conv_encoder/generate_result_vector.py)
+
+
+**Q:¿quisiera pedirte si tendrias algun ejemplo de código de PISO?**
+**A:** Aca tienen un ejemplo interesante: [Link](https://surf-vhdl.com/how-to-implement-a-parallel-to-serial-converter/).
+Tambien coloo en el repo un ejemplo de PISO: [Link](./vhdl/test_piso/../teset_piso/piso.vhd)
