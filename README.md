@@ -7,6 +7,10 @@ Repositorio Materia PDS 2020. MESE UBA.
 * [Doulos Referencia VHDL](https://www.doulos.com/knowhow/vhdl_designers_guide/#resources)
 * [AXI STREAM TUTORIAL 1](http://fpgasite.blogspot.com/2017/07/xilinx-axi-stream-tutorial-part-1.html)
 * [AXI STREAM TUTORIAL 2](http://www.googoolia.com/wp/2014/05/31/lesson-7-axi-stream-interface-in-detail-rtl-flow/)
+* Otros sitios interesantes:
+  *  [fpga4fun](https://www.fpga4fun.com/)
+  *  [fpga4student](https://www.fpga4student.com/)
+  *  [nandland](https://www.nandland.com/articles/fpga-101-fpgas-for-beginners.html)
 
 ## Ejemplo de VHDL
 [Link](./vhdl/):
@@ -54,3 +58,21 @@ Todos los ejemplos incluyen: Codigo RTL, testbench y script para cargar la simul
 
 
 ## FAQ:
+
+**Q: Corriendo el ejemplo de python del codigo convolucional en python tengo el siguiente error:**
+
+```
+File "/PDS/vhdl/test_conv_encoder/generate_result_vector.py", line 37, in <module>
+    y = [np.packbits(item,bitorder = 'little')[0] for item in y]
+
+  File "/PDS/vhdl/test_conv_encoder/generate_result_vector.py", line 37, in <listcomp>
+    y = [np.packbits(item,bitorder = 'little')[0] for item in y]
+
+TypeError: 'bitorder' is an invalid keyword argument for pack()
+```
+
+**A: Aca lo masw seguro es actualizar el numpy, ya que la funcion np.pack no tuvo el parametros bitorder hasta despues la version 1.15.[Link](https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.packbits.html)**.
+
+Esto aplicaria tanto para:
+  * Script de prueba para el ejercicio 2.[Link](./vhdl/python/../../python/generate_conv_data.py) 
+  * Script para chequear con el encoder convolucional reducido:[Link](./vhdl/test_conv_encoder/generate_result_vector.py)
