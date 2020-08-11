@@ -69,16 +69,32 @@ Van desde como hacer bloque basicos como sumadores o shift register hasta como i
 
 ![Xilinx_Templates_1](./assets/readme_7.png)
 
-### Por ejemplo podemos ver como instancia una FIFO AXI STREAM
+**Por ejemplo podemos ver como instanciar una FIFO AXI STREAM**
 ![Xilinx_Templates_1](./assets/readme_8.png)
 
+**Q:** Cuando corro los ejemplos en VHDL no los puedo simular.
 
-**Q**: Templates para FSM:
+**A:** Por defecto cuando cargamos un archivo de VHDL en el Vivado, los hace con VHDL 2002.
+Como los codigos de ejemplo estan escritos con VHDL 2008 pueden haber sintaxis que el Vivado no interpreta:
+Por ejemplo: el **process(all)**.
+
+Yendo archivo por archivo del projecto tienen que cambiar el propertie type de VHDL a VHDL 2009.
+
+![VHDL_2008_PROPERTIE](./assets/readme_10.png)
+
+Tambien si generan el projecto con tcl, cambian el propertie directamente usando la consola o en la creacion del projecto:
+
+```tcl
+set_property file_type {VHDL 2008} [get_files  "conv_encoder_2p_rtl.vhd"]
+set_property file_type {VHDL 2008} [get_files  "conv_encoder_2p_rtl_tb.vhd"]
+```
+
+**Q:** Templates para FSM:
 Pueden observar el siguiente LINK: [Link](https://vhdlguide.readthedocs.io/en/latest/vhdl/fsm.html)
 
-Recomiendo los siguiente esquemas con respecto a los templates de FSM:
+Recomiendo los siguiente esquemas con respecto a los templates de FSM, ya que le va agregando features.:
 
-### Moore
+**Moore**
 ```vhdl
 -- moore_regular_template.vhd
 
@@ -182,7 +198,7 @@ begin
 end architecture;   
 ```
 
-### Mealy
+**Mealy**
 
 ```vhdl
 -- mealy_regular_template.vhd
@@ -300,7 +316,7 @@ Tambien coloo en el repo un ejemplo de PISO: [Link](./vhdl/test_piso/../teset_pi
 
 ![Captura_vivado_1](./assets/readme_1.png)
 
-## Dispositivos a instalar:
+**Dispositivos a instalar:**
 
 ![Captura_vivado_2](./assets/readme_2.png)
 
@@ -317,7 +333,7 @@ Tambien coloo en el repo un ejemplo de PISO: [Link](./vhdl/test_piso/../teset_pi
 
 [Instrucciones de instalacion](https://reference.digilentinc.com/vivado/installing-vivado/start#installing_digilent_board_files)
 
-#### Cuando  generan un projecto lo filtran asi:
+**Cuando  generan un projecto lo filtran asi:**
 ![Filtro eleccion de placasw](./assets/readme_3.png)
 
 **Q**: En el ejercicio 1 del TP1?:
@@ -414,6 +430,25 @@ def zplane(b,a,filename=None):
 
     return z, p, k
 ```
+**Q:** Problemas Matplotlib y PYFDA
+**A:** Hemos encontrado que el modulo maplotlib tenia un incoveniente con el pyfda. En las ultimas versiones anaconda teniamos la version 3.3.0. 
+Lo que vimos que haciendo un downgrade a la version 3.0.0 se soluciona este problema.
+
+De lo contrario no arranca nunca el pyfda.
+En un entorno hacen lo siguiente:
+```
+conda install matplotlib=3.0.3
+```
+
+
+**Q:** A que nos referimos con señales activo bajo y activo alto:?
+
+**A:** Por ejemplo cuando decimos reset activo bajo:
+
+* Activo bajo, significa que cuando el reset es ='0' se hace el reset.
+* Activo alto, significa que cuando el reset es  ='1' se hace el reset.
+
+Esto puede aplicarse para señales de enable, o de chip select CS.
 
 
 ### TP1 Ejercicio 2:
