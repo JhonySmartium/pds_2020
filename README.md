@@ -44,9 +44,13 @@ Todos los ejemplos incluyen: Codigo RTL, testbench y script para cargar la simul
 
 
 ## Ejemplos de Python
-[Python](./vhdl/python):
+[Link](./vhdl/python):
 * **ventaneo_grafico.py**: Prueba el efecto del spreading con fun animation.
 * **transformada_z_grafico.py**: Forma grafica de interpretar el efecto del diagrama de polos en Z en la respuesta de magnitud y de fase.
 * **test_npy.py**: Prueba carga los archivos .npy que se obtienen con el pyfda.
 * **generate_conv_data.py**: Archivo de utilidad para el Ejercicio 2 del TP1. Toma datos de 32 bits y los pasar por un encoder convolucional en python. Tener en mente que en su implementacion dependera el orden que tome si es LSB o MSB.
+  * Instalar las dependedencia: [scikit-dsp-comm](https://scikit-dsp-comm.readthedocs.io/en/latest/readme.html)
 * **Modulo de punto fijo:** [Link](./python/fxpoint)
+
+
+## FAQ:
