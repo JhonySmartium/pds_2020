@@ -394,6 +394,27 @@ Para este caso podriamos hacer:
 ```
 
 
+**Q**: El vivado me tira el siguiente error:
+ ```
+"ERROR: [VRFC 10-664] expression has 34 elements ; expected 32 [/MSE/PDS/tp1/punto2/test/conv_encoder_rtl.vhd:132]
+ ```
+
+**A**: Esto surgio de modificar el ejemplo del encoder convolucional mas simple que mande como codigo de referencia. [Link](./vhdl/test_conv_encoder/)
+
+El codigo que tira el error en especial es el siguiente:
+```vhdl
+ v.m_axis_tdata := regs.m_axis_tdata(31 downto 0) & temp_result
+```
+
+VHDL es muy estricto con los anchos de la palabras, y nunca toma desiciones para achicar o agregar un word.
+El comando ´&´ es una concatenación de arrays-
+Entonces si tu resultado es de 32 bits tenes que concatenar uno de 30 bits con otros de 2 bits. (Fijate que temp result tiene un ancho de 2 bits)
+En el caso del error estan conctenando un array de 32 bits con otro de 2. Lo cual da 34 bits pero el tamaño donde vamos a depositar el resultado es de 32 bits.
+
+Mas sobre el comando : **&** [Link](https://www.csee.umbc.edu/portal/help/VHDL/operator.html)
+
+
+
 ### Vivado y Questasim
 
 **Q:** Donde estan los templates del vivado?:
@@ -610,6 +631,51 @@ Su ejecutan el codigo de python, la variable state guarda el valor del shift reg
 
 Cuando vos metes un word de 16 bits y después metes otro, lo que sucede es que no podes resetear el shift reg. Todo esta relacionado. (Los últimos bits del word 0 están relacionados con los primeros bits del word 1). Esto viene porque el shift register tiene memoria de 7. Podemos pensar que un bit esta relacionado con los 6 bits de antes y los 6 bits que van a venir. De esta manera de aqui surge la potencia del codigo para resolver error. (Algoritmo de Viterbi para la decodificación.)
 
+
+**Q**: En el ejemplo ejemplo "test_conv_encoder", cuando ejecuto tal cual esta "generate_result_vector.py" tengo otra salida con respecto a la salida del simulador:
+
+Captura del simulador:
+![TEST_CONV_ENCODER](./assets/readme_20.png)
+
+**A**: Los resultados te estan dando bien, lo que pasa es que los datos son validos con cuando m_axis_tvalid y m_axis_tready son igual a '1'.
+La consola realiza un print cuando es valida la condicion de transferencia. Recordar siempre que los datos tanto si somos slave como master son validos cuando tvalid y tready valen '1'.
+
+Note: Valor recibido:0x0
+Note: Valor recibido:0x0
+Note: Valor recibido:0x0
+Note: Valor recibido:0x3
+Note: Valor recibido:0xB
+Note: Valor recibido:0x2
+Note: Valor recibido:0x8
+Note: Valor recibido:0xC
+Note: Valor recibido:0xB
+Note: Valor recibido:0x6
+Note: Valor recibido:0x4
+Note: Valor recibido:0xF
+Note: Valor recibido:0x4
+Note: Valor recibido:0xE
+Note: Valor recibido:0x7
+Note: Valor recibido:0x0
+Note: Valor recibido:0xA
+Note: Valor recibido:0x5
+Note: Valor recibido:0x4
+Note: Valor recibido:0x0
+Note: Valor recibido:0x4
+Note: Valor recibido:0x1
+Note: Valor recibido:0x7
+Note: Valor recibido:0xF
+Note: Valor recibido:0x4
+Note: Valor recibido:0x5
+Note: Valor recibido:0xB
+Note: Valor recibido:0xC
+Note: Valor recibido:0xB
+Note: Valor recibido:0xD
+Note: Valor recibido:0x8
+Note: Valor recibido:0x3
+
+Estos valores si coinciden con el esperado0 en el script del ejemplo. En el código de testbench esto lo hacemos de la siguiente manera:
+
+![print_data_valid](./assets/readme_21.png)
 
 ### TP1 Ejercicio 3
 
