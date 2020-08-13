@@ -37,17 +37,17 @@ Repositorio Materia PDS 2020. MESE UBA.
 Todos los ejemplos incluyen: Codigo RTL, testbench y script para cargar la simulación.
 
 * **Clase 1**
-  * Ejercicio Clase 1- 2 Proceso.[Link](./vhdl/ejercicio_clase_1_version_1) 
-  * Ejercicio Clase 1- 1 Proceso. [Link](./vhdl/ejercicio_clase_1_version_2) 
+  * Ejercicio Clase 1- 2 Proceso.   [Link](./vhdl/ejercicio_clase_1_version_1) 
+  * Ejercicio Clase 1- 1 Proceso.   [Link](./vhdl/ejercicio_clase_1_version_2) 
   * Ejercicio Clase 1- Estructural. [Link](./vhdl/ejercicio_clase_1_version_3) 
 
 * **Ejemplos complejidad simple**:
-  * FFD con enable  [Link](./vhdl/test_ffd_vector)
+  * FFD con enable      [Link](./vhdl/test_ffd_vector)
   * Linea de retardo    [Link](./vhdl/test_ffd_vector_array)
-  * Resize      [Link](./vhdl/test_resize)
-  * Saturación  [Link](./vhdl/test_saturation)
-  * Redondeo    [Link](./vhdl/test_round)
-  * Shift   [Link](./vhdl/test_shift)
+  * Resize              [Link](./vhdl/test_resize)
+  * Saturación          [Link](./vhdl/test_saturation)
+  * Redondeo            [Link](./vhdl/test_round)
+  * Shift               [Link](./vhdl/test_shift)
 * **Ejemplos complejidad media:**
   * Multiplicador AXIS [Link](./vhdl/multiplicador_axis_fixed_point)
     * Entrada con Slave AXIS y salida Master AXIS. 
@@ -64,7 +64,8 @@ Todos los ejemplos incluyen: Codigo RTL, testbench y script para cargar la simul
     * Configuracion orden del promediador.
     * Excitación con respuesta impulsiva.
     * Truncamiento a la salida.
-
+  * Filtro Promediador Alumnos [Link](./vhdl/test_promediador_alumnos/)
+    * Idem que el promediador, es el que estamos resolviendo en clases.
 
 ## Ejemplos de Python
 [Link](./vhdl/python):
