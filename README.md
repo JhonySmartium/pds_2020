@@ -366,7 +366,7 @@ def zplane(b,a,filename=None):
 ```
 **Q:** Problemas Matplotlib y PYFDA
 **A:** Hemos encontrado que el modulo maplotlib tenia un incoveniente con el pyfda. En las ultimas versiones anaconda teniamos la version 3.3.0. 
-Lo que vimos que haciendo un downgrade a la version 3.0.0 se soluciona este problema.
+Lo que vimos que haciendo un downgrade a la version 3.0.3 se soluciona este problema.
 
 De lo contrario no arranca nunca el pyfda.
 En un entorno hacen lo siguiente:
