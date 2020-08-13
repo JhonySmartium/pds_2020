@@ -1,7 +1,24 @@
 # PDS 2020:
 Repositorio Materia PDS 2020. MESE UBA.
 
-## Codigo de referencia:
+- [PDS 2020:](#pds-2020)
+  - [Links de la materia](#links-de-la-materia)
+  - [Codigo de referencia](#codigo-de-referencia)
+  - [Ejemplo de VHDL](#ejemplo-de-vhdl)
+  - [Ejemplos de Python](#ejemplos-de-python)
+  - [FAQ:](#faq)
+    - [VHDL](#vhdl)
+    - [Vivado y Questasim](#vivado-y-questasim)
+    - [TP 1 Ejercicio 1](#tp-1-ejercicio-1)
+    - [TP1 Ejercicio 2](#tp1-ejercicio-2)
+    - [TP1 Ejercicio 3](#tp1-ejercicio-3)
+
+## Links de la materia
+
+[LINK DISCORD](https://discord.gg/KnSgbS)
+[LINK DRIVE](https://drive.google.com/drive/folders/1vd8Y5M5hvQPr2y9doFDwbJeGxxkJ7aZb?usp=sharing)
+
+## Codigo de referencia
 * [Digital Design HQ](https://github.com/digital-design-hq/Digital-Resources). Aca tienen muchas referencia a código ya implementado yendo desde lo mas basico a lo mas avanzado.
 * [EDA PLAYGROUND](https://www.edaplayground.com/playgrounds?searchString=&language=VHDL&simulator=&methodologies=&_libraries=on&_svx=on&_easierUVM=on&curated=true&_curated=on). Esta plataforma aparte de tener ejemplo de implementacion les va a permitir correr ejemplos. Ya que tienen disponibles distintos simuladores.
 * [Doulos Referencia VHDL](https://www.doulos.com/knowhow/vhdl_designers_guide/#resources)
@@ -61,34 +78,7 @@ Todos los ejemplos incluyen: Codigo RTL, testbench y script para cargar la simul
 
 ## FAQ:
 
-**Q:** Donde estan los templates del vivado?:
-
-**A:** Abriendo directamente el Vivado tienen ahi, en ---> Tools --> Lenguage Templates. Los templates que nos da Xilinx.
-
-Van desde como hacer bloque basicos como sumadores o shift register hasta como instanciar un bloque DSP48 entre otras cosas.
-
-![Xilinx_Templates_1](./assets/readme_7.png)
-
-**Por ejemplo podemos ver como instanciar una FIFO AXI STREAM**
-![Xilinx_Templates_1](./assets/readme_8.png)
-
-**Q:** Cuando corro los ejemplos en VHDL no los puedo simular.
-
-**A:** Por defecto cuando cargamos un archivo de VHDL en el Vivado, los hace con VHDL 2002.
-Como los codigos de ejemplo estan escritos con VHDL 2008 pueden haber sintaxis que el Vivado no interpreta:
-Por ejemplo: el **process(all)**.
-
-Yendo archivo por archivo del projecto tienen que cambiar el propertie type de VHDL a VHDL 2009.
-
-![VHDL_2008_PROPERTIE](./assets/readme_10.png)
-
-Tambien si generan el projecto con tcl, cambian el propertie directamente usando la consola o en la creacion del projecto:
-
-```tcl
-set_property file_type {VHDL 2008} [get_files  "conv_encoder_2p_rtl.vhd"]
-set_property file_type {VHDL 2008} [get_files  "conv_encoder_2p_rtl_tb.vhd"]
-```
-
+### VHDL
 **Q:** Templates para FSM:
 Pueden observar el siguiente LINK: [Link](https://vhdlguide.readthedocs.io/en/latest/vhdl/fsm.html)
 
@@ -284,74 +274,18 @@ begin
 end architecture;
 ```
 
+**Q:** A que nos referimos con señales activo bajo y activo alto:?
 
-**Q:** Corriendo el ejemplo de python del codigo convolucional en python tengo el siguiente error:
+**A:** Por ejemplo cuando decimos reset activo bajo:
 
-```
-File "/PDS/vhdl/test_conv_encoder/generate_result_vector.py", line 37, in <module>
-    y = [np.packbits(item,bitorder = 'little')[0] for item in y]
+* Activo bajo, significa que cuando el reset es ='0' se hace el reset.
+* Activo alto, significa que cuando el reset es  ='1' se hace el reset.
 
-  File "/PDS/vhdl/test_conv_encoder/generate_result_vector.py", line 37, in <listcomp>
-    y = [np.packbits(item,bitorder = 'little')[0] for item in y]
-
-TypeError: 'bitorder' is an invalid keyword argument for pack()
-```
-
-**A:** Aca lo masw seguro es actualizar el numpy, ya que la funcion np.pack no tuvo el parametros bitorder hasta despues la version 1.15.[Link](https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.packbits.html).
-
-Esto aplicaria tanto para:
-  * Script de prueba para el ejercicio 2.[Link](./vhdl/python/../../python/generate_conv_data.py) 
-  * Script para chequear con el encoder convolucional reducido:[Link](./vhdl/test_conv_encoder/generate_result_vector.py)
+En los procesos sincronicos el reset se aplica las siguientes lineas:
+![RESET_ACTIVO_ALTO_BAJO](./assets/readme_11.png)
 
 
-**Q:**¿quisiera pedirte si tendrias algun ejemplo de código de PISO?.
-
-**A:** Aca tienen un ejemplo interesante: [Link](https://surf-vhdl.com/how-to-implement-a-parallel-to-serial-converter/).
-Tambien coloo en el repo un ejemplo de PISO: [Link](./vhdl/test_piso/../teset_piso/piso.vhd)
-
-
-**Q:** Alguien sabe que opcion debemos marcar en la siguiente imagen durante la instalacion de Vivado?
-
-**A:** Aca lo que hay que tildar es la opción Vivado HL Webpack. Cuando se seleccionan los dispositivos no utilizar los que indican MPSOC y UltraScale, es para las FPGAs mas avanzadas de Xilinx, las cuales por lo general necesitan licencia y nos va a descargar mucho mas contenido.
-
-![Captura_vivado_1](./assets/readme_1.png)
-
-**Dispositivos a instalar:**
-
-![Captura_vivado_2](./assets/readme_2.png)
-
-
-**Q**: En cuanto al QuestaSim tenes idea si se puede trabajar en Linux?
-
-**A**: Aca lo recomendable es utilizar el simulador del Vivado que ya viene embebido o GHDL, por la simplicidad recomendamos usar el que viene con Vivado. Por lo que tengo entendi Questa tiene soporte para Red Hat.
-
-**Q**: Vivado Boards para el 2018.3 ?
-
-**A**: Para poder trabajar las placas de Digilent estos tienen un repositorio en el cual tienen los archivos  que tienen los constraint de pines de los dispositivos. Estos sirve para generar los binarios.  De no tenerlos hay que entrar al esquematico y hacerlo pin por pin.
-
-[Repositorio Digilent](https://github.com/Digilent/vivado-boards)
-
-[Instrucciones de instalacion](https://reference.digilentinc.com/vivado/installing-vivado/start#installing_digilent_board_files)
-
-**Cuando  generan un projecto lo filtran asi:**
-![Filtro eleccion de placasw](./assets/readme_3.png)
-
-**Q**: En el ejercicio 1 del TP1?:
-1. ¿ Como no nombra el clk, debería ser combinacional? o podría ser secuencial también?
-2. ¿Debería haber carry por si hay overflow (ya que todo es de 16bits)? 
-
-1-Para la primera pregunta esta bloque seria solo combinacional con lo cual pueden resolverlo con un process combinacional o tambien utilizando sentencias concurrentas. Queda a criterio de ustedes.
-
-2-La idea del ejercicio cuando hagas la suma en el simulador veas el efecto del overflow, por ejemplo si en elñ testbench excitan con 2 señales que tengan el maximo valor de 16 bits. Por el momento es solo repaso y ver la sintaxis por lo tanto no es fundamental el overflow pero el detalle de la pregunta es fundamental para los ejercicios que vendran despues.
-
-**Q:** Durante la simulacion se observan glitches?
-
-Estos se dan cuando tenemos circuitos combinacionales, a pesar de la simulación ser ideal se observan estos glitches. Estos se deben porque el simulador tiene instancias concurrentes que simulan con orden aleatoria, observar que se esta simulando HW con SW.
-
-En una simulación Post Place and Route este efecto se vería agrandado por las diferencias de tiempos entre los distintos componentes de la FPGA. Si le hacen zoom en el simulador a este efecto va a observa que su delta t es igual a 0.
-
-![Glitches](./assets/readme_4.png)
-
+Esto tambien puede aplicarse para señales de enable, o de chip select CS.
 
 **Q:** Ubicacion ejemplo AXIS?:
 
@@ -440,18 +374,127 @@ En un entorno hacen lo siguiente:
 conda install matplotlib=3.0.3
 ```
 
+**Q:** Señales de salida con valor desconocido (Esto es unknown en el questa aparecen de color rojo).
 
-**Q:** A que nos referimos con señales activo bajo y activo alto:?
+![UNKNOWN_VALUE](./assets/readme_18.png)
 
-**A:** Por ejemplo cuando decimos reset activo bajo:
+**A:** En cualquier módulo que quiera realizarse, todas las salidas deben asignarse durante la etapa de reset. Eas una buena practica de diseño mas teniendo en cuenta que adelante pueden haber modulos que actuen o hagan acciones teniendo en cuenta estas señales.
 
-* Activo bajo, significa que cuando el reset es ='0' se hace el reset.
-* Activo alto, significa que cuando el reset es  ='1' se hace el reset.
+Para este caso podriamos hacer:
 
-Esto puede aplicarse para señales de enable, o de chip select CS.
+```vhdl 
+    if(a_reset_ni = '0')
+        m_axis_tvalid_o <= '0';
+        m_axis_tdata_o  <= '0';
+        s_axis_tready_o <= '0';
+    elsif (rising_edge(clk_i))
+        etc
+        etc
+        etc
+```
 
 
-### TP1 Ejercicio 2:
+### Vivado y Questasim
+
+**Q:** Donde estan los templates del vivado?:
+
+**A:** Abriendo directamente el Vivado tienen ahi, en ---> Tools --> Lenguage Templates. Los templates que nos da Xilinx.
+
+Van desde como hacer bloque basicos como sumadores o shift register hasta como instanciar un bloque DSP48 entre otras cosas.
+
+![Xilinx_Templates_1](./assets/readme_7.png)
+
+**Por ejemplo podemos ver como instanciar una FIFO AXI STREAM**
+![Xilinx_Templates_1](./assets/readme_8.png)
+
+**Q:** Cuando corro los ejemplos en VHDL en el Vivado no los puedo simular.
+
+**A:** Por defecto cuando cargamos un archivo de VHDL en el Vivado, los hace con VHDL 2002.
+Como los codigos de ejemplo estan escritos con VHDL 2008 pueden haber sintaxis que el Vivado no interpreta:
+Por ejemplo: el **process(all)**.
+
+Yendo archivo por archivo del projecto tienen que cambiar el propertie type de VHDL a VHDL 2009.
+
+![VHDL_2008_PROPERTIE](./assets/readme_10.png)
+
+Tambien si generan el projecto con tcl, cambian el propertie directamente usando la consola o en la creacion del projecto:
+
+```tcl
+set_property file_type {VHDL 2008} [get_files  "conv_encoder_2p_rtl.vhd"]
+set_property file_type {VHDL 2008} [get_files  "conv_encoder_2p_rtl_tb.vhd"]
+```
+
+**Q:**¿quisiera pedirte si tendrias algun ejemplo de código de PISO?.
+
+**A:** Aca tienen un ejemplo interesante: [Link](https://surf-vhdl.com/how-to-implement-a-parallel-to-serial-converter/).
+Tambien coloo en el repo un ejemplo de PISO: [Link](./vhdl/test_piso/../teset_piso/piso.vhd)
+
+
+**Q:** Alguien sabe que opcion debemos marcar en la siguiente imagen durante la instalacion de Vivado?
+
+**A:** Aca lo que hay que tildar es la opción Vivado HL Webpack. Cuando se seleccionan los dispositivos no utilizar los que indican MPSOC y UltraScale, es para las FPGAs mas avanzadas de Xilinx, las cuales por lo general necesitan licencia y nos va a descargar mucho mas contenido.
+
+![Captura_vivado_1](./assets/readme_1.png)
+
+**Dispositivos a instalar:**
+
+![Captura_vivado_2](./assets/readme_2.png)
+
+**Q**: En cuanto al QuestaSim tenes idea si se puede trabajar en Linux?
+
+**A**: Aca lo recomendable es utilizar el simulador del Vivado que ya viene embebido o GHDL, por la simplicidad recomendamos usar el que viene con Vivado. Por lo que tengo entendi Questa tiene soporte para Red Hat.
+
+**Q**: Vivado Boards para el 2018.3 ?
+
+**A**: Para poder trabajar las placas de Digilent estos tienen un repositorio en el cual tienen los archivos  que tienen los constraint de pines de los dispositivos. Estos sirve para generar los binarios.  De no tenerlos hay que entrar al esquematico y hacerlo pin por pin.
+
+[Repositorio Digilent](https://github.com/Digilent/vivado-boards)
+
+[Instrucciones de instalacion](https://reference.digilentinc.com/vivado/installing-vivado/start#installing_digilent_board_files)
+
+**Cuando  generan un projecto lo filtran asi:**
+![Filtro eleccion de placasw](./assets/readme_3.png)
+
+
+
+
+### TP 1 Ejercicio 1
+
+**Q**: En el ejercicio 1 del TP1?:
+1. ¿ Como no nombra el clk, debería ser combinacional? o podría ser secuencial también?
+2. ¿Debería haber carry por si hay overflow (ya que todo es de 16bits)? 
+
+1-Para la primera pregunta esta bloque seria solo combinacional con lo cual pueden resolverlo con un process combinacional o tambien utilizando sentencias concurrentas. Queda a criterio de ustedes.
+
+2-La idea del ejercicio cuando hagas la suma en el simulador veas el efecto del overflow, por ejemplo si en elñ testbench excitan con 2 señales que tengan el maximo valor de 16 bits. Por el momento es solo repaso y ver la sintaxis por lo tanto no es fundamental el overflow pero el detalle de la pregunta es fundamental para los ejercicios que vendran despues.
+
+**Q:** Durante la simulacion se observan glitches?
+
+Estos se dan cuando tenemos circuitos combinacionales, a pesar de la simulación ser ideal se observan estos glitches. Estos se deben porque el simulador tiene instancias concurrentes que simulan con orden aleatoria, observar que se esta simulando HW con SW.
+
+En una simulación Post Place and Route este efecto se vería agrandado por las diferencias de tiempos entre los distintos componentes de la FPGA. Si le hacen zoom en el simulador a este efecto va a observa que su delta t es igual a 0.
+
+![Glitches](./assets/readme_4.png)
+
+
+**Q**: Si no entendí mal dijiste que la suma de las señales no podía ser directamente, que tenia que hacerse previo conversión a unsigned, ¿es correcto?
+
+**A**: Si tal cual es asi, es siempre conveniente hacer la suma con unsigned que esta definida. Estamos usando lo que se recomienda actualmente que es la libreria **numeric_std**. (tiene definida las operacion para los tipos signed,unsigned e integer)
+Antes estaban las libreria de synopsis **ieee.std_logic_arith, ieee.std_logic_unsigned/signed** 
+Estas tienen definidad las operacion para std_logic, std_logic_vector e integer.
+
+**Utilizar siempre numeric_std y usar el siguiente grafico:**
+
+![Conversiones_numeric_std](./assets/readme_12.png)
+
+**Q**: Como hacer las and y las or a los vectores.
+
+**A**: Estas se pueden a
+
+
+
+### TP1 Ejercicio 2
+
 **Q:** Que significa R=1/2?
 
 **A:**: Significa que por cada bit de entrada tenes dos de salida
@@ -472,4 +515,122 @@ El ejercicio pide aumentar el ancho de la palabra para no lidiar con la problema
 
 ![AXIS_EJER2](./assets/readme_6.png)
 
+**Q:** Corriendo el ejemplo de python del codigo convolucional en python tengo el siguiente error:
 
+```
+File "/PDS/vhdl/test_conv_encoder/generate_result_vector.py", line 37, in <module>
+    y = [np.packbits(item,bitorder = 'little')[0] for item in y]
+
+  File "/PDS/vhdl/test_conv_encoder/generate_result_vector.py", line 37, in <listcomp>
+    y = [np.packbits(item,bitorder = 'little')[0] for item in y]
+
+TypeError: 'bitorder' is an invalid keyword argument for pack()
+```
+
+**A:** Aca lo masw seguro es actualizar el numpy, ya que la funcion np.pack no tuvo el parametros bitorder hasta despues la version 1.15.[Link](https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.packbits.html).
+
+Esto aplicaria tanto para:
+  * Script de prueba para el ejercicio 2.[Link](./vhdl/python/../../python/generate_conv_data.py) 
+  * Script para chequear con el encoder convolucional reducido:[Link](./vhdl/test_conv_encoder/generate_result_vector.py)
+
+
+**Q**: Si el algoritmo hace un shift por clock, voy a tener una entrada constante con una salida de 32 bits que va a ir cambiando. es decir, durante 16 ciclos va a existir una entrada constante y una salida que varía acorde a las operaciones de convolución. Es correcto asi, ¿no?
+
+**A**: La idea es que a vos te van a poner un dato de 16 bits. Y después durante 16 ciclos lo vas a estar shifteando (Haciendolo pasar por el shift register).
+La salida mientras haga eso va a ir cambiando.
+Lo importante que el TVALID hacia el SLAVE que esta a la derecha lo actives cuando terminaste de hacer el shift. (O sea 16 ciclos despues). 
+La condición de transferencia del AXIS (tvalid y tready en '1') se tiene que dar cuando terminaste de procesar los 16 bits que te pusieron a la entrada. (Todo lo que haya a la salida en este )
+
+
+**Q**: Arquitectura basica del diseño del ejercicio 2
+
+**A**: Durante el ejercicio 2 muchos han preguntado como era la arquitectura del diseño, la consigna indica que entran 16 bits valido pero la salida tiene 32 bits validos y el algoritmo es serial.
+Aca hay que entender el problema primero como una parte relacionado con el algoritmo convolucional y otra como organizamos la informacion a la entrada y la salida (16 bits a la entrada y 32 bits a la salida)
+
+![ARQ_BASICA_EJER_2](./assets/readme_13.png)
+
+El problema puede pensarse con los siguientes pasos:
+* Se recibe un dato valido por el AXI S, lo guardamos en un registro.
+* Vamos pasando el bit menos significativo por el algoritmo. (Por ejemplo su entidad podria ser parecida a esta:)
+![ENTIDAD](./assets/readme_14.png)
+* Cuando los datos se procesan lo guardamos en el registro de salida.
+* Hacemos los pasos anteriores 16 veces. (Eso nos da a la salida 32 bits).
+* Informamos a la salida que tenemos un dato valido para seguir mandando.
+
+**El ejercicio puede pensarse en la siguientes 3 fases:**
+![3_FASES](./assets/readme_15.png)
+
+
+**Q**: Ejemplo paso a paso de procesamiento de un word de 16 bits?
+Tenemos una entrada de 16 bits con el valor 0x8001. Lo que hacemos es hacer el paso a paso de como son los resultado ciclo por ciclo.
+
+En este ejemplo estas metiendo los datos por el LSB. (Esto depende del criterio que quieren usar, el ejercicio no les obliga a elegir ninguno).
+Para la entrada 0xD511 el resultado es 0xf0bfcff7.
+Si tomamos el criterio de LSB para la salida. Esto implica que los bits menos significativas de la entrada, ven su resultado reflejado en los LSB de la salida.
+
+![3_FASES](./assets/readme_17.png)
+Por cada bit que se procesan se sacan 2 bits. Depende de cada uno como los ordena. Como uno los presenta cuando salen.
+
+**Q**: Observo que el primer word de 16 bits da el valor esperado pero el segundo da un valor incorrecto.
+
+**A**: Recordar que el algoritmo funciona en formato serial, lo que hacemos con la entrada de 16 bits y la salida de 32 bits es crear una capa de abstraccion.
+Lo que vi en muchas resoluciones es que entre word y word que reciben resetean el shift register centrl (el de k = 7).
+
+**Esto NO debe hacerse, el shift registro solo se resetea cuando arranca el sistema, sino cada vez que entra un nuevo word no se modifica este regisro**.
+
+Su ejecutan el codigo de python, la variable state guarda el valor del shift register asi cuando entran con el proximo word de 16 bits, el algoritmo se ejecuta teniendo como valor previo el valor de state.
+
+```python
+    #Como siempre gracias stackoverflow
+    #https://stackoverflow.com/questions/10321978/integer-to-bitfield-as-a-list
+    def bitfield(n):
+        return [int(digit) for digit in '{0:016b}'.format(n)] 
+
+
+    cc1 = fec.fec_conv(('1111001','1011011'))
+    state = '0000000'
+    result = np.array([],dtype=np.uint8)
+
+    #Poner aca los datos que queremos usar para generar el vector de pruebas.
+    int_array = np.array([0x8001,0x8002,0xAAAA],dtype=np.uint64)
+    for item in int_array:
+        bit_array =  bitfield(item)
+        bit_array = bit_array[::-1]
+        #El state siempre nos lo llevamos para el proximo word de 16 bits.
+        y,state = cc1.conv_encoder(bit_array,state)
+        y = np.packbits(y[::-1].astype(np.int64),bitorder = 'big')
+        result = np.concatenate([result,y])
+
+    #Ahora lo imprimimos de una manera coherencia
+    result = result.reshape(result.size//4,4).astype(dtype = np.int64)
+    for item in result:    
+        print('0x' + hex(int.from_bytes(list(item),byteorder = 'big'))[2:].zfill(8))
+```
+
+
+Cuando vos metes un word de 16 bits y después metes otro, lo que sucede es que no podes resetear el shift reg. Todo esta relacionado. (Los últimos bits del word 0 están relacionados con los primeros bits del word 1). Esto viene porque el shift register tiene memoria de 7. Podemos pensar que un bit esta relacionado con los 6 bits de antes y los 6 bits que van a venir. De esta manera de aqui surge la potencia del codigo para resolver error. (Algoritmo de Viterbi para la decodificación.)
+
+
+### TP1 Ejercicio 3
+
+**Q**: Alguna luz acerca de cómo atacar el punto 3 del TP. En especial con respecto a lo de python.
+
+**A**:
+
+Fijate que hay un notebook que di en la clase 4. Que hace descomposición de un ejemplo desde la ecuacion de diferencias.
+[Link](https://drive.google.com/file/d/1eFAxDBdmjBrCQKW6stTCIrMR-W3iDy5W/view).
+
+Tambien el que te puede servir es el de la clase de repaso. Estan todas la funciones pero no es tan directo como el anterior.
+[Link](https://drive.google.com/file/d/1LJ_llDmxvHb7PuA1CN3Nrv7zIps8_NlF/view).
+
+
+Con respecto al **VHDL** el  promediador esta pensado como punto de partido para hacer el EJ 3 y el EJ 4. Lo podes encontrar en el repo en el [Link](./vhdl/test_promediador/).
+
+El promediador en clase que estabamos haciendo tambien se puede tomar como referencia tambien.
+
+La gran salvedad es que tiene realimentación, o sea la salida depende de las muestas de entradas y muestras de salida anteriores (Observad los factores y(n-1) / y(n-2)). Hay que agregar otra cadena de retardo que captura las salidas.
+
+![EJ_3](./assets/readme_19.png)
+En este grafico no estan hechas las operaciones y tampoco las presiciones en bits. Pero se observa un flujo para los datos.
+
+A grandes rasgos los bloque celestes son los que coficamos durante la clase cuando hicimos el promediador. Para el ejercicio 3 van a tener que codificar los que estan pintados en naranja que seria la cadena de feedback.
