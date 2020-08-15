@@ -375,6 +375,43 @@ En un entorno hacen lo siguiente:
 conda install matplotlib=3.0.3
 ```
 
+**Q**:  Estoy tratando de instalar el pyfda para analizar el tema de las ecuaciones de las transformadas, sin embargo tengo un problema al levantar el programa.
+
+**A**: Para los que bajaran Anaconda ultimamente hay una incompatibilidad con el pyfda. Existen 32 caminos de solución. surge porque pyfda no soprota python 3.8 y matplotlib 3.3.0 que son las ultimas versiones
+
+* Instalar una version mas vieja del Anaconda. [Anaconda3-2020.02](https://repo.anaconda.com/archive/) **Probado en mi maquina**. --> Instalar matplotlib 3.0.3 y Pyfda.
+
+* Hacer un entorno virtual desde 0, instalando solo lo que necesitan. Como se indica a continuación. instalar primero python 3.7
+
+````
+sudo apt-get update
+sudo python -m pip install virtualenv
+python -m virtualenv ./env/test
+cd ./env/test/bin
+````
+
+**Ahora instalamos lo paquetes necesarios en el entorno virtual**.
+
+````
+source activate
+python -m pip install matplotlib==3.0.3
+python -m pip install pyfda
+````
+
+Aca ya instalamos el pyfda, con lo cual lo lanzamos con 
+
+````
+pyfdax
+````
+
+Una vez que terminamos de trabajar hacemos 
+````
+deactivate
+````
+
+Cada vez que se quiera correr el pyfda hay que hacer el **activate** en el directorio donde esta el entorno virtual.
+
+
 **Q:** Señales de salida con valor desconocido (Esto es unknown en el questa aparecen de color rojo).
 
 ![UNKNOWN_VALUE](./assets/readme_18.png)
@@ -702,39 +739,21 @@ En este grafico no estan hechas las operaciones y tampoco las presiciones en bit
 
 A grandes rasgos los bloque celestes son los que coficamos durante la clase cuando hicimos el promediador. Para el ejercicio 3 van a tener que codificar los que estan pintados en naranja que seria la cadena de feedback.
 
+**Q**: En el ejercicio 3 se debe excitar el sistema con la frecuencia de Nyquist
+Mi pregunta es; en este caso la frecuencia de Nyquist es igual a la frecuencia de muestreo multiplicada por dos, que es la frecuencia que tiene la señal de enable del sistema?
 
-**Q**:  Estoy tratando de instalar el pyfda para analizar el tema de las ecuaciones de las transformadas, sin embargo tengo un problema al levantar el programa.
+**A**: 
+La frecuencia de Nyquist es la mitad de la frecuencia de muestros (no el doble). [Link](https://es.wikipedia.org/wiki/Frecuencia_de_Nyquist)
 
-**A**: Para los que bajaran Anaconda ultimamente hay una incompatibilidad con el pyfda. Existen 32 caminos de solución. surge porque pyfda no soprota python 3.8 y matplotlib 3.3.0 que son las ultimas versiones
+Si uno por ejemplo sampleas a 1 Khz, la maxima frecuencia en la cual el sistema digital es valido es 500 Hz. La cual es conocida como la frecuencia de Nyquist.
+En un su sistema implementado en **VHDL**  la frecuencia de sampleo es la frecuencia con la que uno excita los enable de este sistema DSP. Esa es la asa efectiva real no la frecuencia de clock. En el caso mas optimo los enables pueden tener un duty del 100%, lo cual implica trabajar a un fs = f_clk.
 
-* Instalar una version mas vieja del Anaconda. [Anaconda3-2020.02](https://repo.anaconda.com/archive/) **Probado en mi maquina**. --> Instalar matplotlib 3.0.3 y Pyfda.
+Recomiendo excitar con una señal de $(-1.0)^{n}$, que se daran que es igual a $sin(2.\pi.\frac{f_d}{fs} + \frac{\pi}{2})$
 
-* Hacer un entorno virtual desde 0, instalando solo lo que necesitan. Como se indica a continuación. instalar primero python 3.7
+**Q**: Cuando excito el sistema con una señal DC de 0.25 tengo como resultado una señal cercana a 2. Mirando la respuesta de amplitud se ve que en DC la salida tiene un valor de 8.
 
-````
-sudo apt-get update
-sudo python -m pip install virtualenv
-python -m virtualenv ./env/test
-cd ./env/test/bin
-````
+**A**: La respuesta en frecuencia nos da informacion de la siguiente manera
+$$ Y(n) = H(f=DC).X(n)$$
+Con lo cual multiplica por una constante a la señal de entrada asi que si entra con una señal de 0.25 la multiplica por 8. Por lo que 0.25*8 da como resultado 2
 
-**Ahora instalamos lo paquetes necesarios en el entorno virtual**.
 
-````
-source activate
-python -m pip install matplotlib==3.0.3
-python -m pip install pyfda
-````
-
-Aca ya instalamos el pyfda, con lo cual lo lanzamos con 
-
-````
-pyfdax
-````
-
-Una vez que terminamos de trabajar hacemos 
-````
-deactivate
-````
-
-Cada vez que se quiera correr el pyfda hay que hacer el **activate** en el directorio donde esta el entorno virtual.
