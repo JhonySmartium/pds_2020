@@ -701,3 +701,40 @@ La gran salvedad es que tiene realimentación, o sea la salida depende de las mu
 En este grafico no estan hechas las operaciones y tampoco las presiciones en bits. Pero se observa un flujo para los datos.
 
 A grandes rasgos los bloque celestes son los que coficamos durante la clase cuando hicimos el promediador. Para el ejercicio 3 van a tener que codificar los que estan pintados en naranja que seria la cadena de feedback.
+
+
+**Q**:  Estoy tratando de instalar el pyfda para analizar el tema de las ecuaciones de las transformadas, sin embargo tengo un problema al levantar el programa.
+
+**A**: Para los que bajaran Anaconda ultimamente hay una incompatibilidad con el pyfda. Existen 32 caminos de solución. surge porque pyfda no soprota python 3.8 y matplotlib 3.3.0 que son las ultimas versiones
+
+* Instalar una version mas vieja del Anaconda. [Anaconda3-2020.02](https://repo.anaconda.com/archive/) **Probado en mi maquina**. --> Instalar matplotlib 3.0.3 y Pyfda.
+
+* Hacer un entorno virtual desde 0, instalando solo lo que necesitan. Como se indica a continuación. instalar primero python 3.7
+
+````
+sudo apt-get update
+sudo python -m pip install virtualenv
+python -m virtualenv ./env/test
+cd ./env/test/bin
+````
+
+**Ahora instalamos lo paquetes necesarios en el entorno virtual**.
+
+````
+source activate
+python -m pip install matplotlib==3.0.3
+python -m pip install pyfda
+````
+
+Aca ya instalamos el pyfda, con lo cual lo lanzamos con 
+
+````
+pyfdax
+````
+
+Una vez que terminamos de trabajar hacemos 
+````
+deactivate
+````
+
+Cada vez que se quiera correr el pyfda hay que hacer el **activate** en el directorio donde esta el entorno virtual.
